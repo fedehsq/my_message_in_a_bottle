@@ -1,0 +1,36 @@
+<html>
+  <html lang="en">
+  <head>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='create_user/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='create_user/assets/css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+  </head>
+
+  <body style="background-image: url({{ url_for('static', filename='create_user/assets/svg/registration.svg') }});">
+    <div class="container" style="margin-top: 50px;">
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">Registration</h1>
+      <div class="col-md-6">
+        <div class="card">
+          <form action="" method="POST" class="box">
+            {{ form.hidden_tag() }}
+            <dl>
+            {% for field in form.display %}
+              <dt>{{ form[field].label }}</dt>
+              <dd>{{ form[field]() }}</dd>
+            {% endfor %}
+            </dl>
+            <p id="wrong_email" style="color:#FF0000";>{{ email_error_message }}</p>
+            <p id="wrong_date" style="color:#FF0000";>{{ date_error_message }}</p>
+            {% if just_registered %}
+              <p id = "registration_done">{{ just_registered }} <a href="/login">log in</a>.</p>
+            {% endif %}
+            <input type="submit" class="btn btn-primary" value="Register"> 
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

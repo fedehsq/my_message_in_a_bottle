@@ -1,0 +1,32 @@
+<html>
+  <html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+ <body style="background: black; color: white;">
+  <div class="aboutMeText">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <dl>
+        {% for field in form.display %}
+        <dt>{{ form[field].label }}</dt>
+        <dd>{{ form[field]() }}</dd>
+          {% if form[field].errors %}
+              {% for e in form[field].errors %}
+              [[<p class="help-block">{{ e }}</p>]]
+              {% endfor %}
+          {% endif %}
+        {% endfor %}
+        </dl>
+        <p style="color:#FF0000";>{{ data }}</p>
+        <input type="submit" class="btn btn-primary" value="Register"></span> 
+      </form>
+  </div>
+
+ </body>
+</html>
+
