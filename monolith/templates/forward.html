@@ -1,0 +1,41 @@
+<html>
+  <html lang="en">
+  <head>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+  </head>
+
+  <body style="background-image: url({{ url_for('static', filename='svg/message.svg') }});">
+    <div class="container" style="margin-top: 10px;">
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">Forward</h1>
+      <div class="col-md-6">
+        <div class="card">
+          <form action="" method="POST" class="box" style="margin-top: 10px; padding: 20px;">
+            {{ form.hidden_tag() }}
+              <dl>
+                <dt>{{ form['receiver'].label }}</dt>
+                <dd>{{ form['receiver']() }}</dd>
+                <dt>{{ form['body'].label }}</dt>
+                <dd><textarea readonly rows="8" cols="50">{{  form['body'].data }}</textarea></dd>
+                <dt>{{ form['date'].label }}</dt>
+                <dd>{{ form['date']() }}</dd>
+                <dt>{{ form['time'].label }}</dt>
+                <dd>{{ form['time']() }}</dd>
+            </dl>
+            <p id="wrong_email" style="color:#FF0000";>{{ email_error_message }}</p>
+            <p id="wrong_date" style="color:#FF0000";>{{ date_error_message }}</p>
+            <p id="wrong_words" style="color:#FF0000";>{{ error }}</p>
+            {% if scheduled %}
+              <p id = "scheduled">{{ scheduled }} back to <a href="/">homepage</a>.</p>
+            {% endif %}
+            <input type="submit" class="btn btn-primary" value="Forward"> 
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

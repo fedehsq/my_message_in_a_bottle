@@ -1,80 +1,146 @@
-   <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-      <title>My Message In A Bottle</title>
-      <link rel="stylesheet" href =" {{ url_for('static', filename='dashboard/assets/css/bootstrap.css') }}">
-      <link rel="stylesheet" href =" {{ url_for('static', filename='dashboard/assets/vendor/animate/animate.css') }}">
-      <link rel="stylesheet" href = "{{ url_for('static', filename='dashboard/assets/css/theme.css') }}">
-    </head>
-    <body>
-    
-      <div class="page-hero bg-image overlay-dark" style="background-image:url({{ url_for('static', filename='dashboard/assets/img/bg_chat.svg') }})">
-        <div class="hero-section">
-          <div class="container text-center wow zoomIn">
-            <span class="subhead">Hi <h1 id="username">{{ current_user.firstname }}</h1></span>
-            <span class="subhead">Let's make your life funny</span>
-            <h1 class="display-4">My Message In A Bottle</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .btn {
+      background-color: transparent;
+      border: none;
+      color: black;
+      padding: 12px 16px;
+      font-size: 30px;
+      cursor: pointer;
+      align-items: center;
+      position:relative; 
+      left:95%; 
+      top:2px;
+    }
+    </style>
+
+  <title>My Message In A Bottle</title>
+  <link rel="stylesheet" href =" {{ url_for('static', filename='dashboard/assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href =" {{ url_for('static', filename='dashboard/assets/vendor/animate/animate.css') }}">
+  <link rel="stylesheet" href = "{{ url_for('static', filename='dashboard/assets/css/theme.css') }}">
+  <!--Link for Font awesome icons-->  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <meta charset=utf-8 />
+</head>
+
+<script> 
+  // reload mailbox every 30 seconds
+    $(document).ready(function() {
+      setInterval(function() {
+        console.log('reloaded')
+            $("#mailbox").load(window.location.href + " #mailbox" );
+      }, 30000);
+    });
+  </script>
+<body>
+  <!-- big image on the bg -->
+  <div class="page-hero bg-image overlay-dark" style="background-image:url({{ url_for('static', filename='dashboard/assets/img/bg_chat.svg') }})">
+    <div class="hero-section">
+      <div class="container text-center wow zoomIn">
+        <span class="subhead">Hi <h1 id="username">{{ current_user.firstname }}</h1></span>
+        <span class="subhead">Let's make your life funny</span>
+        <h1 class="display-4">My Message In A Bottle</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-light">
+    <div class="page-section py-3 mt-md-n5 custom-index">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card-service wow fadeInUp" onclick='window.location.href="/users"' type="submit">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_chat.svg') }}" width="20%">
+              <p>Program a message</p>
+            </div>
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+            <div  id="mailbox" style="position: absolute; left: 0px; top: 0px; right: 90px; bottom: 0px; 
+           " class="card-service wow fadeInUp" onclick='window.location.href="/mailbox"' type="submit">
+              {% if number != 0 %}
+              <div style= "background-color: red; border-radius: 50%; color:white; width: 30px; height: 30px; text-align: left; vertical-align: middle;   justify-content: center;
+              align-items: center; display: flex; position: absolute; right: -15px; top: -15px; font-size: 14px; "class="message-count">{{number}}</div>
+              {% endif %}
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_mail.svg') }}" width="20%">
+              <p>Mailbox</p>
+            </div>
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card-service wow fadeInUp" onclick='window.location.href="/logout"' type="submit">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_logout.svg') }}" width="20%">
+              <p>Logout</p>
+            </div>
           </div>
         </div>
       </div>
-    
-    
-      <div class="bg-light">
-        <div class="page-section py-3 mt-md-n5 custom-index">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-4 py-3 py-md-0">
-                <div class="card-service wow fadeInUp" input type=submit>
-                  <img src="{{ url_for('static', filename='dashboard/assets/img/icon_chat.svg') }}" width="20%">
-                  <p>Program a message</p>
-                </div>
-              </div>
-              <div class="col-md-4 py-3 py-md-0">
-                <div class="card-service wow fadeInUp" input type=submit>
-                  <img src="{{ url_for('static', filename='dashboard/assets/img/icon_mail.svg') }}" width="20%">
-                  <p>Mailbox</p>
-                </div>
-              </div>
-              <div class="col-md-4 py-3 py-md-0">
-                <div class="card-service wow fadeInUp" input type=submit>
-                  <img src="{{ url_for('static', filename='dashboard/assets/img/icon_logout.svg') }}" width="20%">
-                  <p>Logout</p>
-                </div>
-              </div>
+    </div> <!-- .page-section -->
+    <br>
+  <div class="bg-light">
+    <div class="page-section py-3 mt-md-n5 custom-index">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card-service wow fadeInUp" onclick='window.location.href="/profile"' type="submit">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_account.svg') }}" width="20%">
+              <p>About me</p>
             </div>
           </div>
-        </div> <!-- .page-section -->
-    
-        <div class="page-section pb-0">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-6 py-3 wow fadeInUp">
-                <h1>Welcome to your<br> Dashboard</h1>
-                <p class="text-grey mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Accusantium aperiam earum ipsa eius, inventore nemo labore eaque porro consequatur ex aspernatur. Explicabo, excepturi accusantium! Placeat voluptates esse ut optio facilis!</p>
-              </div>
-              <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
-                <div class="img-place custom-img-1">
-                  <img src="{{ url_for('static', filename='dashboard/assets/img/mail.svg') }}" alt="">
-                </div>
-              </div>
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card-service wow fadeInUp" onclick='window.location.href="/delete"' type="submit">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_delete.svg') }}" width="20%">
+              <p>Unsubscribe</p>
             </div>
           </div>
-        </div> <!-- .bg-light -->
-      </div> <!-- .bg-light -->
-      <a href="/logout">Logout</a>
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card-service wow fadeInUp" onclick='window.location.href="/playLottery"' type="submit">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/icon_paid.svg') }}" width="20%">
+              <p>Play</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .page-section -->
 
-    
-    <script src="{{ url_for('static', filename='dashboard/assets/js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard/assets/vendor/owl-carousel/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard/assets/vendor/wow/wow.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard/assets/js/theme.js') }}"></script>
+    <div class="page-section pb-0">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 py-3 wow fadeInUp">
+            <h1>Welcome to your<br> Dashboard</h1>
+            <p class="text-grey mb-4">MyMessageInABottle might seem at first glance
+              simply like another messaging app, like many others. WRONG.
+              MyMessageInABottle is a time capsule where each user can keep messages, safeguard them, and send them only to decide later when
+              the recipient will be able to open them. Whether it’s at a specific time
+              on that same day, weeks later, or even years later. What matters is that
+              the message cannot be changed or deleted. Even if you uninstall the
+              app. And it will reach its destination. It’s important. There are choices
+              to be made, and you need to take your time.</p>
+          </div>
+          <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
+            <div class="img-place custom-img-1">
+              <img src="{{ url_for('static', filename='dashboard/assets/img/mail.svg') }}" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .bg-light -->
+  </div> <!-- .bg-light -->
+
+<script src="{{ url_for('static', filename='dashboard/assets/js/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dashboard/assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dashboard/assets/vendor/owl-carousel/js/owl.carousel.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dashboard/assets/vendor/wow/wow.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dashboard/assets/js/theme.js') }}"></script>
 
 
-    </body>
-    </html>
+</body>
+</html>

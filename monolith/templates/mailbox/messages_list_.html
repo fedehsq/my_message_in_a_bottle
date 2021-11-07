@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+  </head>
+
+  <body style="background-image: url({{ url_for('static', filename='svg/message.svg') }});">
+    <div class="container" style="margin-top: 50px;">
+      <a href="/">
+        <img style="position: fixed; left: 5%;"
+        src="{{ url_for('static', filename='svg/icon_home.svg') }}" alt=""
+      >
+      </a>
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">{{ page_title }}</h1>
+      {% if page_title == 'Scheduled' %}
+          <div style="margin: auto;">
+            <p style="color: black; font-size: 30;">Your points: {{ points }}</p>
+            {% if (points < 150) %}
+            <p style="color: red;">Remember! You need 150 points to delete a scheduled message! <a href="/playLottery">Play lottery</a> to win points!</p>
+            {% else %}
+            <p style="color: black; font-size: 15;">To delete a message you have to pay 150 points!</p>
+            {% endif %}
+          </div>
+      {% endif %}
+      <div class="col-md-6">
+        <div class="card">
+          <form action="" method="POST" class="box" style="margin-top: 10px; padding: 20px;">
+            <dl>
+              {% for message in messages %}
+                {% if message.read == False and page_title == 'Inbox' %}
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">From:</span> {{ message.sender }}</dd>
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">To:</span> {{ message.dest }}</dd>
+                <dd style="font-weight: bold;"><span style="font-weight: bold; ">Message:</span> {{ message.body }}<dd>              
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">Date: </span>{{ message.time }}</dd>
+               
+                {% elif message.id in read_msg and page_title == 'Sent' %}
+                <dd style = "font-weight: bold;"><span style="font-weight: bold; ">Id:</span> {{ message.id }}</dd>
+                <dd style = "font-weight: bold;"><span style="font-weight: bold; ">From:</span> {{ message.sender }}</dd>
+                <dd style = "font-weight: bold;"><span style="font-weight: bold; ">To:</span> {{ message.dest }}</dd>
+                <dd style = "font-weight: bold;"><span style="font-weight: bold;">Message:</span> {{ message.body }}</dd>              
+                <dd style = "font-weight: bold;"><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+
+                {% else %}
+                <dd><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd><span style="font-weight: bold;">From:</span> {{ message.sender }}</dd>
+                <dd><span style="font-weight: bold;">To:</span> {{ message.dest }}</dd>
+                <dd><span style="font-weight: bold; ">Message:</span> {{ message.body }}</dd>              
+                <dd><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+                {% endif %}
+
+                    {% if page_title == 'Draft' %}
+                    <div class="btn-group">
+                      <input type="button" onclick='window.location.href="/mailbox/draft/{{ message.id }}"'
+                      value="Edit" class="btn btn-primary"></input>
+
+                      <button name="delete" tag="delete" id ="delete" value="{{message.id}}" class="btn btn-primary" type="submit">Delete</button>
+
+                    </div>
+                    {% elif page_title == 'Sent' %}
+                    <div class="btn-group">
+                      <input type="button" onclick='window.location.href="/mailbox/sent/{{ message.id }}"'
+                      value="Read" class="btn btn-primary"></input>
+
+                      <input type="button" onclick='window.location.href="/mailbox/forward/{{ message.id }}"'
+                      value="Forward" class="btn btn-primary"></input>
+
+                      <button name="delete" tag="delete" id ="delete" value="{{message.id}}" class="btn btn-primary" type="submit">Delete</button>
+                    </div>
+
+                    
+                      {% elif page_title == 'Inbox' %}
+                      <div class="btn-group">
+                        <input type="button" onclick='window.location.href="/mailbox/inbox/{{ message.id }}"'
+                        value="Read" class="btn btn-primary"></input>
+  
+                        <input type="button" onclick='window.location.href="/mailbox/forward/{{ message.id }}"'
+                        value="Forward" class="btn btn-primary"></input>
+
+                        <input type="button" onclick='window.location.href="/mailbox/reply/{{ message.id }}"'
+                        value="Reply" class="btn btn-primary"></input>
+  
+                        <button name="delete" tag="delete" id ="delete" value="{{message.id}}" class="btn btn-primary" type="submit">Delete</button>
+                      </div>                     
+                    {% elif page_title == 'Scheduled' %}
+                    <input type="button" onclick='window.location.href="/mailbox/scheduled/{{ message.id }}"'
+                    value="Read" class="btn btn-primary"
+                    >  
+                    </input>
+                      {% if points > 149 %}
+                        <button name="delete" tag="delete" id ="delete" value="{{ message.id }}" class="btn btn-primary" type="submit">Delete</button>
+                      {% endif %}
+                    {% else %}
+                    <input type="button" onclick='window.location.href="/mailbox/sent/{{ message.id }}"'
+                      value="Read" class="btn btn-primary"></input>
+                    {% endif %}
+                    <hr style="height:2px;border-width:0;background-color:gray">
+                {% endfor %}
+            </dl>
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

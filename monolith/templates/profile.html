@@ -1,0 +1,73 @@
+<html>
+  <html lang="en">
+  <head>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <meta charset=utf-8 />
+  </head>
+
+  <script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#image')
+                .attr('src', e.target.result)
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+  </script>
+
+  <body style="background-image: url({{ url_for('static', filename='svg/profile.svg') }});">
+    <div class="container" style="margin-top: 30px;">
+      <a href="/">
+        <img style="position: fixed; left: 5%;"
+        src="{{ url_for('static', filename='svg/icon_home.svg') }}" alt=""
+      >
+      </a>
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">Profile</h1>
+      <div class="col-md-6">
+        <div class="card">
+          <form enctype=multipart/form-data action="" method="POST" class="box" style="margin-top: 10px; padding: 20px;">
+            {{ form.hidden_tag() }}
+
+            <img id="image" style="border-radius: 50%;"
+            src="{{ url_for('static', filename=mphoto) }}" width="200px" height="200px"/>
+
+            {% for field in form.display %}
+              <dt>{{ form[field].label }}</dt>
+              {% if field == 'email' %}
+                <dd><input type="text" value="{{ form[field].data }}" disabled></dd>
+              {% elif field == 'photo' %}
+              <div class="file">
+                <label for="photo">Pick a file</label>
+                <input id="photo" name="photo" type="file", onchange="readURL(this)">
+              </div>
+              {% elif field == 'points' %}
+                <dd><input type="text" value="{{ form[field].data }}" disabled></dd>
+              {% else %}
+                <dd>{{ form[field]() }}</dd>
+              {% endif %}
+            {% endfor %}
+            </dl>
+            <p id="wrong_date" style="color:#FF0000";>{{ date_error_message }}</p>
+            <p id="suggest" style="color:#94d4a9";>{{ suggest }}</p>
+            {% if just_edited %}
+              <p id = "profile_edited">{{ just_edited }}<a href="/">dashboard</a></p>
+            {% else %}
+              <p><a href="/">Dashboard</a></p>
+            {% endif %}
+            <input type="submit" class="btn btn-primary" value="Save"> 
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

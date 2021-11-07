@@ -1,0 +1,17 @@
+<html>
+  <html lang="en">
+  <head>
+      <!--Link for Font awesome icons-->  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+  </head>
+  <body style="background-color: #19191991; margin-top: 20px;">
+    <h1 id="page_title" style="margin-top: 20px; margin: 50px;">Unsubscribed</h1> 
+    <img src="{{ url_for('static', filename='svg/unsubscribe.svg') }}" alt="">
+    <h2 style="margin-top: 20px;"> <a style="color: white;" href="/">It's not the same without you</a> <i class="fa fa-meh-o"></i></h2> 
+  </body>

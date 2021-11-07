@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <meta charset=utf-8 />
+  </head>
+
+  <script>
+    function pickImage(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              document.getElementById('confirm').value = 1;
+              $('#image')
+                .attr('src', e.target.result)
+                .attr('style', 'visibility: visible;')
+                .width(200)
+                .height(200)
+              $('#remove-btn')
+                .attr('style', 'visibility: visible;')
+                .width(15)
+                .height(15)
+              $('#file-class')
+                .attr('style', 'visibility: hidden;')
+                .width(0)
+                .height(0)
+          };
+          reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+
+  <script>
+    function removeImage() {
+      document.getElementById('confirm').value = 0;
+      document.getElementById('photo').value = "";
+      $('#image').attr('style', 'visibility: hidden;"')
+        .width(0)
+        .height(0)
+      $('#remove-btn').attr('style', 'visibility: hidden;"')
+        .width(0)
+        .height(0)
+        $('#file-class')
+          .attr('style', 'visibility: visible;"')
+          .width(115)
+          .height(40)
+    }
+  </script>
+
+  <script>
+    function setBold() {
+      if (!document.getElementById("bold").checked) {
+        document.getElementById("body").style.fontWeight = 'normal';
+      } else {
+        document.getElementById("body").style.fontWeight = 'bold';
+      }
+  }
+  </script>
+
+
+  <script>
+    function setItalic() {
+      if (!document.getElementById("italic").checked) {
+        document.getElementById("body").style.fontStyle = 'normal';
+      } else {
+        document.getElementById("body").style.fontStyle = 'italic';
+      }
+  }
+  </script>
+
+
+  <script>
+    function setUnderline(value) {
+      if (!document.getElementById("underline").checked) {
+        document.getElementById("body").style.textDecoration = 'none';
+      } else {
+        document.getElementById("body").style.textDecoration = 'underline';
+      }
+  }
+  </script>
+
+  <script>
+    function setStyle() {
+      if ("{{ message|safe }}" == "None") {
+        return
+      }
+      if ("{{ message.bold }}" == "True") {
+        try {
+          document.getElementById("bold").checked = true; 
+        } catch (error) {
+        }
+        document.getElementById("body").style.fontWeight = 'bold';
+      }
+      if ("{{ message.italic }}" == "True") {
+        try {
+          document.getElementById("italic").checked = true;
+        } catch (error) {
+        }
+        document.getElementById("body").style.fontStyle = 'italic';
+      }
+      if ("{{ message.underline }}" == "True") {
+        try {
+          document.getElementById("underline").checked = true;
+        } catch (error) {
+        }
+        document.getElementById("body").style.textDecoration = 'underline';
+      }
+    }
+  </script>
+
+
+
+  <body onload="setStyle()" style="background-image: url({{ url_for('static', filename='svg/message.svg') }});">
+    <div class="container" style="margin-top: 10px;">
+      <a href="/">
+        <img style="position: fixed; left: 5%;"
+        src="{{ url_for('static', filename='svg/icon_home.svg') }}" alt=""
+      >
+      </a>
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">Message</h1>
+      <div class="col-md-6">
+        <div class="card">
+          <form action="" method="POST" enctype=multipart/form-data class="box" style="margin-top: 10px; padding: 20px;">
+            {{ form.hidden_tag() }}
+            {% if disabled %}
+              <dl>
+                <dt>{{ form['receiver'].label }}</dt>
+                <dd><input type="text" value="{{ form['receiver'].data }}" readonly></dd>
+                <dt>{{ form['body'].label }}</dt>
+                <dd><textarea id="body" name="body" readonly rows="8" cols="30">{{  form['body'].data }}</textarea></dd>
+                {% if not mphoto %}
+                  <img id="image" style="visibility: hidden;"
+                  src="" width="0px" height="0px"/>
+
+                {% else %}
+                  <dt>{{ form['photo'].label }}</dt>
+                  <img id="image" onclick="init()"
+                  src="{{ mphoto }}" width="200px" height="200px"/>
+
+                {% endif %}
+                <dt>{{ form['date'].label }}</dt>
+                <dd><input type="text" value="{{  form['date'].data }}" disabled></dd>
+                <dt>{{ form['time'].label }}</dt>
+                <dd><input type="text" value="{{  form['time'].data }}" disabled></dd>
+            </dl>
+            {% else %}
+              <dl>
+                <dt>{{ form['receiver'].label }}</dt>
+                <dd>{{ form['receiver']() }}</dd>
+                <dt>{{ form['body'].label }}</dt>
+                
+                <label class = "checkbox-inline">
+                  <input onclick="setBold(this.value)" 
+                   id="bold" name="bold" value="normal" 
+                   type = "checkbox"> 
+                   Bold 
+               </label>
+ 
+                <label class = "checkbox-inline">
+                  <input onclick="setItalic(this.value)" 
+                   id="italic" name="italic" value="normal" 
+                   type = "checkbox"> 
+                   Italic 
+               </label>
+ 
+                <label class = "checkbox-inline">
+                  <input onclick="setUnderline(this.value)" 
+                   id="underline" name="underline" value="normal" 
+                   type = "checkbox"> 
+                   Underline 
+               </label>
+ 
+               
+
+               <!--
+
+                <input onclick="setBold(this.value)" type="checkbox" id="bold" name="bold" value="normal">
+                <label class = "checkbox-inline" for="bold">Bold</label><br>
+                <input type="checkbox" id="italic" name="italic" value="normal">
+                <label class = "checkbox-inline" for="italic">Italic</label><br>
+                <input type="checkbox" id="underlying" name="underlying" value="normal">
+                <label class = "checkbox-inline" for="underlying">Underlying</label><br><br>
+               -->
+                
+                
+                
+                <dd>{{ form['body'](rows=8, cols=30) }}</dd>
+                <dt>{{ form['photo'].label }}</dt>
+                {% if not mphoto %}
+                  <img id="image" style="visibility: hidden;"
+                  src="" width="0px" height="0px"/>
+                  <br>
+                  <button type="button" id="remove-btn" style="visibility: hidden; width: 0px; height: 0px;
+                    " onclick="removeImage()" class="btn"><i class="fa fa-trash"></i></button>
+                  <div id="file-class" class="file">
+                    <label for="photo">Pick a file</label>
+                    <input id="photo" name="photo" type="file", onchange="pickImage(this)">
+                  </div>
+                {% else %}
+                
+                  <img id="image"
+                  src="{{ mphoto }}" width="200px" height="200px"/>
+                  <br>
+                  <button type="button" id="remove-btn" onclick="removeImage()" class="btn"><i class="fa fa-trash"></i></button>
+                  <div id="file-class" style="visibility: hidden;" class="file">
+                    <label for="photo">Pick a file</label>
+                    <input id="photo" name="photo" type="file", onchange="pickImage(this)">
+                  </div>
+
+                {% endif %}
+                
+                
+                <dt>{{ form['date'].label }}</dt>
+                <dd>{{ form['date']() }}</dd>
+                <dt>{{ form['time'].label }}</dt>
+                <dd>{{ form['time']() }}</dd>
+                <ul style="list-style-type: none; margin-right: 40px;" {{ form['choice']() }}</ul>
+              </dl>
+            {% endif %}
+            <p id="wrong_email" style="color:#FF0000";>{{ email_error_message }}</p>
+            <p id="suggest" style="color:#94d4a9";>{{ suggest }}</p>
+            <p id="wrong_date" style="color:#FF0000";>{{ date_error_message }}</p>
+            <p id="wrong_words" style="color:#FF0000";>{{ error }}</p>
+            {% if wrong_dest %}
+              <p id="wrong_dest" style="color:#FF0000";>{{ wrong_dest }}.</p>
+            {% endif %}
+            {% if blacklist_dest %}
+            <p id="blacklist_dest" style="color:#FF0000";>{{ blacklist_dest }}.</p>
+            {% endif %}
+            {% if forbidden %}
+              <p id="forbidden" style="color:#FF0000";>{{ forbidden }} Back to <a href="/login">homepage</a>.</p>
+            {% endif %}
+            {% if draft %}
+              <p id = "drafted">{{ draft }} back to <a href="/login">homepage</a>.</p>
+            {% endif %}
+            {% if scheduled %}
+              <p id = "scheduled">{{ scheduled }} back to <a href="/login">homepage</a>.</p>
+            {% endif %}
+            {% if not disabled %}
+              <button class="btn btn-primary" id='confirm' name="confirm" type="submit">Confirm</button>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

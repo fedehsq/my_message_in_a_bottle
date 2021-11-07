@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href ="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href = "{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+  </head>
+
+  <body style="background-image: url({{ url_for('static', filename='svg/message_search.svg') }});">
+    <div class="container" style="margin-top: 10px;">
+      <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">{{ page_title }}</h1>
+      <div class="col-md-6">
+        <div class="card">
+          <form action="" method="POST" class="box" style="margin-top: 10px; padding: 20px;">
+            <dl>
+                <h5>Inbox</h5>
+                {% for message in inbox %}
+                <!-- message attribute -->
+                {% if message.read == False %}
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">From:</span> {{ message.sender }}</dd>
+                <dd style="font-weight: bold;"><span style="font-weight: bold; ">Message:</span> {{ message.body }}<dd>              
+                <dd style="font-weight: bold;"><span style="font-weight: bold;">Date: </span>{{ message.time }}</dd>
+                {% else %}
+                <dd><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd><span style="font-weight: bold;">To:</span> {{ message.dest }}</dd>
+                <dd><span style="font-weight: bold; ">Message:</span> {{ message.body }}</dd>              
+                <dd><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+                {% endif %}
+                <div class="btn-group">
+                    <input type="button" onclick='window.location.href="/mailbox/inbox/{{ message.id }}"'
+                    value="Read" class="btn btn-primary"></input>
+                    <input type="button" onclick='window.location.href="/mailbox/forward/{{ message.id }}"'
+                    value="Forward" class="btn btn-primary"></input>
+                    <input type="button" onclick='window.location.href="/mailbox/reply/{{ message.id }}"'
+                    value="Reply" class="btn btn-primary"></input>
+                </div>
+                <hr style="height:2px;border-width:0;background-color:gray">
+                {% endfor %}
+                <hr style="height:2px;border-width:2;background-color:red">
+                
+                <h5>Sent</h5>
+                {% for message in sent %}
+                {% if message.id in read_msg %}
+                <dd style = "color: forestgreen;"><span style="font-weight: bold; ">Id:</span> {{ message.id }}</dd>
+                <dd style = "color: forestgreen;"><span style="font-weight: bold; ">To:</span> {{ message.dest }}</dd>
+                <dd style = "color: forestgreen;"><span style="font-weight: bold;">Message:</span> {{ message.body }}</dd>              
+                <dd style = "color: forestgreen;"><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+                {% else %}
+                <!-- message attribute -->
+                <dd><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd><span style="font-weight: bold;">To:</span> {{ message.dest }}</dd>
+                <dd><span style="font-weight: bold; ">Message:</span> {{ message.body }}</dd>              
+                <dd><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+                <div class="btn-group">
+                    <input type="button" onclick='window.location.href="/mailbox/sent/{{ message.id }}"'
+                    value="Read" class="btn btn-primary"></input>
+                    <input type="button" onclick='window.location.href="/mailbox/forward/{{ message.id }}"'
+                    value="Forward" class="btn btn-primary"></input>
+                </div>
+                {% endif %}
+                <hr style="height:2px;border-width:0;background-color:gray">
+                {% endfor %}
+                <hr style="height:2px;border-width:2;background-color:red">
+                <h5>Scheduled</h5>
+                {% for message in scheduled %}
+                <!-- message attribute -->
+                <dd><span style="font-weight: bold;">Id:</span> {{ message.id }}</dd>
+                <dd><span style="font-weight: bold;">To:</span> {{ message.dest }}</dd>
+                <dd><span style="font-weight: bold; ">Message:</span> {{ message.body }}</dd>              
+                <dd><span style="font-weight: bold; ">Date: </span>{{ message.time }}</dd>
+                <div class="btn-group">
+                    <input type="button" onclick='window.location.href="/mailbox/scheduled/{{ message.id }}"'
+                    value="Read" class="btn btn-primary"></input>
+                </div>
+                <hr style="height:2px;border-width:0;background-color:gray">
+                {% endfor %}
+            </dl>
+          </form>
+        </div>
+      </div>
+    </div>
+ </body>
+</html>

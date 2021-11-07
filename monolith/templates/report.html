@@ -8,18 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
   </head>
-    <body style="background-image: url({{ url_for('static', filename='svg/work_chat.svg') }});">
+    <body style="background-image: url({{ url_for('static', filename='svg/report.svg') }});
+    background-position: center;
+    ">
       <div class="container" style="margin-top: 50px;">
-        <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">My message in a bottle</h1>
+        <h1 style="font-family: Source Sans Pro, sans-serif;" id="page_title">User report</h1>
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                   <form action="" method="POST" class="box">
-                    <h1>Login</h1>
-                    <p class="text-muted">Please enter your login and password!</p>
+                    <h1>Report</h1>
+                    <p class="text-muted">Please enter user's email and optional reason!</p>
                      {{ form.hidden_tag() }}
                      {% for field in form.display %}
                      {{ form[field].label }}
+                     <br>
                      {{ form[field]() }}
                        {% if form[field].errors %}
                           {% for e in form[field].errors %}
@@ -28,10 +31,9 @@
                        {% endif %}
                      <br>
                      {% endfor %}
-                     <p id = "wrong_credentials" style="color:#FF0000";>{{ wrong_credentials }}</p>
-                     <p id = "user_blocked" style="color:#FF0000";>{{ user_blocked }}</p>
-                     <input type=submit value="Log in">
-                    <p class="text-muted">Or maybe do you want to <a href="/register">register</a>?</p>
+                     <br>
+                     <p id = "wrong_email" style="color:#FF0000";>{{ email_error_message }}</p>
+                     <input type=submit value="Confirm">
                   </form>
                 </div>
             </div>
