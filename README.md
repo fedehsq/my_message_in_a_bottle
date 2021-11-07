@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/ManfredoFac/HW2.svg?token=sCUbEzotwbjEpdHdvWDb&branch=main)](https://app.travis-ci.com/ManfredoFac/HW2)
+[![Build Status](https://app.travis-ci.com/ManfredoFac/HW2.svg?token=sCUbEzotwbjEpdHdvWDb&branch=main)](https://app.travis-ci.com/ManfredoFac/HW2) [![Coverage Status](https://coveralls.io/repos/github/ManfredoFac/HW2/badge.svg?branch=main&t=UrzulF)](https://coveralls.io/github/ManfredoFac/HW2?branch=main)
 ## Instructions
 1. Open the project in your IDE.
 2. From IDE terminal, or normal Ubuntu/MacOS terminal execute the command `virtualenv venv` inside project root.
