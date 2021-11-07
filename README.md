@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/ManfredoFac/HW2.svg?token=sCUbEzotwbjEpdHdvWDb&branch=main)](https://app.travis-ci.com/ManfredoFac/HW2)
 ## Instructions
 1. Open the project in your IDE.
 2. From IDE terminal, or normal Ubuntu/MacOS terminal execute the command `virtualenv venv` inside project root.
