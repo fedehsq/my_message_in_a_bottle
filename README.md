@@ -16,7 +16,7 @@ to be made, and you need to take your time."
 
 ## Tools
 
-To develeop this application, several software/framework was used:
+To develeop this application, several software/framework have been used:
 
 1. [Flask](https://palletsprojects.com/p/flask/) is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.
 
