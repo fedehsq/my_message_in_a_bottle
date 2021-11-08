@@ -1,6 +1,6 @@
 # Message in a bottle
 
-[![Build Status](https://app.travis-ci.com/ManfredoFac/HW2.svg?token=sCUbEzotwbjEpdHdvWDb&branch=main)](https://app.travis-ci.com/ManfredoFac/HW2) [![Coverage Status](https://coveralls.io/repos/github/ManfredoFac/HW2/badge.svg?branch=main&t=UrzulF)](https://coveralls.io/github/ManfredoFac/HW2?branch=main)
+[![Build Status](https://app.travis-ci.com/ManfredoFac/HW2.svg?token=sCUbEzotwbjEpdHdvWDb&branch=main)](https://app.travis-ci.com/ManfredoFac/HW2) [![Coverage Status](https://coveralls.io/repos/github/ManfredoFac/HW2/badge.svg?branch=main&t=gy6EPP)](https://coveralls.io/github/ManfredoFac/HW2?branch=main)
 
 ## Description
 
