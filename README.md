@@ -31,12 +31,12 @@ It’s a task queue with focus on real-time processing, while also supporting ta
 
 6. [Coveralls](https://coveralls.io/) "DELIVER BETTER CODE" helps you to deliver code confidently by showing which parts of your code aren’t covered by your test suite.
 
-### [For more details](https://github.com/ManfredoFac/message_in_a_bottle/blob/master/message_in_a_bottle.pdf)
+### [For more details](https://github.com/ManfredoFac/message_in_a_bottle/blob/main/message_in_a_bottle.pdf)
 
 ## Functionalities
 
 The web app developed provides the following functionalities shown with the user stories.
-![User stories](https://github.com/ManfredoFac/message_in_a_bottle/blob/master/user_stories.png)
+![User stories](https://github.com/ManfredoFac/message_in_a_bottle/blob/main/user_stories.png)
 
 ## Instructions
 
