@@ -509,6 +509,10 @@ class TestDeleteUsuer(unittest.TestCase):
         with app:
             # login the user              
             post_login(app, 'example@example.com', 'admin', 'username')
+            # clean the scheduled messages queue because if celery is not started, the user won't be
+            # deleted until his scheduled messages will be delivered
+            current_user.to_be_sent = '[]'
+            db.session.commit()
             title = get_page_id(app, '/delete', 'page_title')
             # Client is logged, it is on the profile page
             self.assertEqual(title, UNSUBSCRIBED_PAGE_TITLE)

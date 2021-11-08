@@ -1,5 +1,5 @@
 import unittest
-from monolith.background import do_task
+from monolith.background import do_task, lottery
 import unittest
 from monolith.app import app as tested_app
 from bs4 import BeautifulSoup
@@ -7,7 +7,7 @@ from werkzeug.datastructures import ImmutableDict
 from monolith.database import Message, Messages, db
 from flask_login import current_user
 from sqlalchemy.orm import sessionmaker, Session
-from monolith.background import check_notifications_inbox, check_msg, check_notifications_sent
+from monolith.background import check_notifications_inbox, check_msg, check_notifications_sent, check_deleted
 from monolith.classes.tests.user_test import post_login
 
 # Auxiliary funtions
@@ -15,6 +15,10 @@ from monolith.classes.tests.user_test import post_login
 class TestBackground(unittest.TestCase):
     def test_do_task(self):
         self.assertEqual(do_task(), [])
+
+class TestLottery(unittest.TestCase):
+    def test_lottery_task(self):
+        self.assertEqual(lottery(), {"lottery extraction done!"})
 
 # Tester class for celery's background tasks
 # 1. Task that deliver messages when the time is expired
@@ -105,3 +109,6 @@ class TestCeleryFun(unittest.TestCase):
             post_login(app, 'example@example.com', 'admin', 'username')
             to_read = current_user.to_read
             self.assertEqual(to_read, 3)
+
+    def test_check_delited(self):
+        self.assertEqual(check_deleted(),{"check_deleted done!"})

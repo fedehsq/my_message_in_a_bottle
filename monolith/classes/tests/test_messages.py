@@ -132,6 +132,9 @@ class TestReply(unittest.TestCase):
 class TestScheduled(unittest.TestCase):
     def test_scheduled(self):
         app = tested_app.test_client()
+        # ------ Test get mailbox scheduled with user not logged -----
+        title = get_page_id(app, '/mailbox/scheduled/', 'page_title')
+        self.assertEqual(title, LOGIN_PAGE_TITLE)
         with app:
             # ------ Test1: scheduled without id-----
             post_login(app, 'example@example.com', 'admin', 'username')
@@ -146,6 +149,9 @@ class TestScheduled(unittest.TestCase):
 class TestSent(unittest.TestCase):
     def test_sent(self):
         app = tested_app.test_client()
+        # ------ Test get mailbox sent with user not logged -----
+        title = get_page_id(app, '/mailbox/sent/', 'page_title')
+        self.assertEqual(title, LOGIN_PAGE_TITLE)
         with app:
             # ------ Test1: send with correct id-----
             post_login(app, 'example@example.com', 'admin', 'username')

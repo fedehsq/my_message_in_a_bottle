@@ -16,23 +16,23 @@ _APP = None
 celery.conf.beat_schedule = {
     "check-every-minute-msg": {
         "task": "check_messages",
-        "schedule": timedelta(seconds=30),
+        "schedule": timedelta(seconds=60),
      }, 
     "inbox_notifications": {
         "task": "notifications_inbox",
-        "schedule": timedelta(seconds = 30),
+        "schedule": timedelta(seconds = 60),
     },
     "sent_notifications": {
         "task": "notifications_sent",
-        "schedule": timedelta(seconds = 30),
+        "schedule": timedelta(seconds = 60),
     },
     "lottery-game":{
         "task": "lottery_task",
-        "schedule": timedelta(seconds=20)     #day_of_month="1"
+        "schedule": timedelta(seconds=60)     #day_of_month="1" for a monthly lottery, 60 seconds to do tests 
     },
     "check_deleted_users":{
         "task": "check_deleted_users",
-        "schedule": timedelta(minutes = 30)     #day_of_month="1"
+        "schedule": timedelta(minutes = 30) 
     }
 }
 
@@ -91,8 +91,8 @@ def lottery():
     with _APP.app_context():
         #generate random number between 1-100
         seed()
-        #number_extract = randint(1,100)
-        number_extract = 10
+        number_extract = randint(1,100)
+        #number_extract = 10
         users = db.session.query(User)
         for usr in users:
             if usr.lottery_number == number_extract:
@@ -100,7 +100,7 @@ def lottery():
                 #reset the user's lottery number for the next extraction
             usr.lottery_number = 0 
         db.session.commit()
-        return {"number_extracted": number_extract}
+        return {"lottery extraction done!"}
 
 # celery periodic task to detect the number of message that have not been read
 @celery.task(name = 'notifications_inbox')
@@ -214,6 +214,7 @@ def check_deleted():
                 if user.to_be_sent == "[]":
                     db.session.query(User).filter(User.email == user.email).delete()
                     db.session.commit()
+        return {"check_deleted done!"}
 
 
 @celery.task

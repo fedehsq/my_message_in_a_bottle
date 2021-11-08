@@ -40,7 +40,6 @@ def create_app():
         do_task.delay()
         # delete all users in database if pytest is running
         if "PYTEST_CURRENT_TEST" in os.environ:
-            print('qua')
             db.session.query(User).delete()
         q = db.session.query(User).filter(User.email == 'example@example.com')
         user = q.first()
