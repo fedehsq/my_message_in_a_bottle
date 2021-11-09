@@ -54,9 +54,11 @@ def edit_profile():
     # the email is not editable 
     # so manual fill this field to avoid error on submit
     form.email.data = current_user.email
+    points = current_user.points
     if form.validate_on_submit():
         # update user info
         form.populate_obj(current_user)
+        current_user.points = points
         current_user.set_password(form.password.data)
         current_user.date_of_birth = form.date_of_birth.data
         # update profile pic of user
