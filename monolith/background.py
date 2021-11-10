@@ -28,11 +28,11 @@ celery.conf.beat_schedule = {
     },
     "lottery-game":{
         "task": "lottery_task",
-        "schedule": timedelta(seconds=60)     #day_of_month="1" for a monthly lottery, 60 seconds to do tests 
+        "schedule": timedelta(days = 30)     #day_of_month="1" for a monthly lottery, 60 seconds to do tests 
     },
     "check_deleted_users":{
         "task": "check_deleted_users",
-        "schedule": timedelta(minutes = 1) 
+        "schedule": timedelta(seconds = 60) 
     }
 }
 
