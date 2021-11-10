@@ -32,7 +32,7 @@ celery.conf.beat_schedule = {
     },
     "check_deleted_users":{
         "task": "check_deleted_users",
-        "schedule": timedelta(minutes = 30) 
+        "schedule": timedelta(minutes = 1) 
     }
 }
 
@@ -97,10 +97,10 @@ def lottery():
         for usr in users:
             if usr.lottery_number == number_extract:
                 usr.points +=100
-                #reset the user's lottery number for the next extraction
+            #reset the user's lottery number for the next extraction
             usr.lottery_number = 0 
         db.session.commit()
-        return {"lottery extraction done!"}
+        return "lottery extraction done!"
 
 # celery periodic task to detect the number of message that have not been read
 @celery.task(name = 'notifications_inbox')
@@ -156,7 +156,7 @@ def check_msg():
                     len_lis = len(recipients_list)
                     for i in range(0,len_lis):
                         recipients_list[i] = recipients_list[i].strip()
-                    #str1 = ''.join(recipients_list)
+                    
                     # send the message to each recipient
                     for rec in recipients_list:
                         q = db.session.query(User).filter(User.email == rec)
@@ -214,7 +214,7 @@ def check_deleted():
                 if user.to_be_sent == "[]":
                     db.session.query(User).filter(User.email == user.email).delete()
                     db.session.commit()
-        return {"check_deleted done!"}
+        return "check_deleted done!"
 
 
 @celery.task

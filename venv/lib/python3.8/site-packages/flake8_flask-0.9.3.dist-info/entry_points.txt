@@ -1,0 +1,3 @@
+[flake8.extension]
+r2c-flake8=flake8_flask.main:Flake8Flask
+

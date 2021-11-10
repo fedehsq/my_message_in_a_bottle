@@ -18,7 +18,7 @@ class TestBackground(unittest.TestCase):
 
 class TestLottery(unittest.TestCase):
     def test_lottery_task(self):
-        self.assertEqual(lottery(), {"lottery extraction done!"})
+        self.assertEqual(lottery(), "lottery extraction done!")
 
 # Tester class for celery's background tasks
 # 1. Task that deliver messages when the time is expired
@@ -110,5 +110,5 @@ class TestCeleryFun(unittest.TestCase):
             to_read = current_user.to_read
             self.assertEqual(to_read, 3)
 
-    def test_check_delited(self):
-        self.assertEqual(check_deleted(),{"check_deleted done!"})
+    def test_check_delited(self): 
+        self.assertEqual(check_deleted(),"check_deleted done!")

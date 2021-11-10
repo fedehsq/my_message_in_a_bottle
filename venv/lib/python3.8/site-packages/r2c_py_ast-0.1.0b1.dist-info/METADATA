@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: r2c-py-ast
+Version: 0.1.0b1
+Summary: Program analysis utilities for Python, by r2c. Used in [Bento](https://bento.dev).
+Home-page: https://bento.dev
+Author: R2C
+Author-email: hello@returntocorp.com
+Requires-Python: >=3.6,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
